@@ -5,6 +5,16 @@ mod encrypt;use encrypt::*;
 use std::env; 
 use std::path::Path;
 fn main() {
+    // let args: Vec<String> = env::args().collect();
+    // if args.len() < 4 {
+    //     print!("Not enough arguments.\n");
+    //     std::process::exit(0);
+    // }
+    // let a = &args[1];
+    // let k = key_from_file(&"key.txt".to_string(), a);
+    // print_key(&k,&a);
+
+
     let args: Vec<String> = env::args().collect();
     if !Path::new("cipher.txt").exists() && !Path::new("plain.txt").exists() {
         print!("This program needs either plain.txt or cipher.txt (but not both) in the same directory.");
@@ -26,27 +36,24 @@ fn main() {
     };
     
     if !Path::new("cipher.txt").exists() && Path::new("plain.txt").exists() {
-        print!("ENCRYPT\n");
         print_key(&k,&a);
         let p = message_from_file(&"plain.txt".to_string(), a);
         print!("of plain.txt  = {}\n",  message_as_string(&p, a));
         let c = encrypt(&k,&p,rounds);
         let d = decrypt(&k,&c,rounds);
         if equal(&p,&d) {
-            print!("SUCCESS\n");
+            print!("SUCCESSFUL ENCRYPTION\n");
             write_message("cipher.txt".to_string(), &c, a);
         }
         
     }
     if Path::new("cipher.txt").exists() && !Path::new("plain.txt").exists() {
-        print!("DECRYPT\n");
         print_key(&k,a);
         let c = message_from_file(&"cipher.txt".to_string(), a);
-        print!("of plain.txt  = {}\n",  message_as_string(&c, a));
         let p = decrypt(&k,&c,rounds);
         let d = encrypt(&k,&p,rounds);
         if equal(&c,&d) {
-            print!("SUCCESS\n");
+            print!("SUCCESSFUL DECRYPTION\n");
             write_message("plain.txt".to_string(), &p, a);
         }
     };

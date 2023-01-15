@@ -4,9 +4,11 @@ use std::io::Write;
 pub fn symbol_from_string(string : &str, alphabet : &str) -> Symbol {
     let mut symbol : Symbol = vec!();
     for c in string.chars() {
-        match alphabet.find(c) {
-            Some(index) => symbol.push(index as u8),
-            None => panic!(),
+        if c != '\n' {
+            match alphabet.find(c) {
+                Some(index) => symbol.push(index as u8),
+                None => panic!(),
+            }
         }
     }
     symbol
