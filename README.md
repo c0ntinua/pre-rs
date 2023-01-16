@@ -1,5 +1,5 @@
 
-# pre-wasi
+# pre-rs
 
 This is the Rust version of the Pre symmetric crypto system (which uses prefix or instantaneous codes when writing ciphertext). It's aimed at WebAssembly runtimes in the terminal in particular. There's a separate key-generator program in another repo. The images below show how it works. Basically you need a key.txt and either a plain.txt or cipher.txt file in the working directory. The program will encrypt or decrypt as appropriate. The colorful output is a representation of the key. The arguments are the number of rounds and the alphabet. 
 
